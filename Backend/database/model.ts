@@ -2,8 +2,7 @@ import { Schema, model } from 'mongoose';
 
 const ObjectId = Schema.Types.ObjectId;
 
-// Note: The name we use for model MUST match the collection name in Atlas!
-const User = model('users', new Schema({
+export const User = model('Users', new Schema({
                                 name: {type: String, required: true},
                                 email: {type: String, required: true},
                                 username: {type: String, required: true},
@@ -17,17 +16,15 @@ const Comments = new Schema({
     comment: {type: String, required: true},
 }, {timestamps: true});
 
-const Post = model('Posts', new Schema({
+export const Post = model('Posts', new Schema({
     title: {type: String, required: true},
     slug: {type: String, required: true},
     description: {type: String, required: true},
     codeSnippet: {type: String, required: true},
-    authorId: {type: ObjectId, required: true, ref: 'User'},
+    authorId: {type: ObjectId, required: true, ref: 'Users'},
     rating: {
         avgRating: {type: Number, required: true},
         noOfRatings: {type: Number, required: true}
     },
     comments: [Comments],
 }, {timestamps: true}))
-
-export {User, Post};

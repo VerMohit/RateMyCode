@@ -10,8 +10,7 @@ export const getUsers = async (_: Request, res: Response) => {
             throw new NotFoundError(`There are no users!`);
         }
 
-        // add int logic for if result is found
-        res.status( 200)
+        res.status( 200 )
                   .json( users )
 
     } catch (error) {
@@ -49,8 +48,7 @@ export const getUserByUsername = async (req: Request, res: Response) => {
             throw new NotFoundError(`Person with username not found: ${userName}`);
         }
 
-        // add int logic for if result is found
-        res.status( 200)
+        res.status( 200 )
                   .json( user )
 
     } catch (error) {

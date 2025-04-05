@@ -11,6 +11,7 @@ router.get('/getUser/:username', userController.getUserByUsername);
 
 router.get('/getPosts', postController.getPosts);
 router.get('/getPosts/:username', postController.getPostsByUser);
+// router.get('/getPosts/:id', postController.getPostsById);
 
 // router.get('./getPosts', postController.getPosts);
 // router.get('./getPost/:id', postController.getPostsById);

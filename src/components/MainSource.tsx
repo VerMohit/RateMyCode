@@ -1,11 +1,13 @@
 import React from 'react';
-import { Title } from '@mantine/core';
+import { Container, Title } from '@mantine/core';
+import { AllPosts } from './AllPosts';
 
 export default function MainSource() {
   return (
-    <div>
+    <Container>
       <Title>This is the home page we will be using!</Title>
+      <AllPosts />
       <p>Note that all other components must be nested within the MantineProvider component!</p>
-    </div>
+    </Container>
   );
 }
