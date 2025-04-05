@@ -2,13 +2,12 @@ import { Request, Response } from 'express';
 import * as model from '../database/model';
 import { CustomeError, NotFoundError } from '../utils/customErrors';
 
-
 export const getUsers = async (_: Request, res: Response) => {
     try {
         const users = await model.User.find()
         console.log(users)
         if(!users) {
-            throw new NotFoundError(`Database is empty!`);
+            throw new NotFoundError(`There are no users!`);
         }
 
         // add int logic for if result is found
@@ -76,4 +75,5 @@ export const getUserByUsername = async (req: Request, res: Response) => {
                     });
     }
 };
+
 

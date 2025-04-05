@@ -1,15 +1,16 @@
 import { Router } from "express";
 import * as userController from './users';
-// import * as postController from './posts.ts';
+import * as postController from './posts';
 
 const router = Router();
 
-
-// router.get('/getUser/:username', userController.getUserByUsername);
 router.get('/getUsers', userController.getUsers);
 router.get('/getUser/:username', userController.getUserByUsername);
+// router.patch('/updateUser/:username', userController.updateUserByUsername);
 
-// router.patch('/updateUser/:username', _user.updateUserByUsername);
+
+router.get('/getPosts', postController.getPosts);
+router.get('/getPosts/:username', postController.getPostsByUser);
 
 // router.get('./getPosts', postController.getPosts);
 // router.get('./getPost/:id', postController.getPostsById);
