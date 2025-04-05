@@ -2,22 +2,22 @@ import express from 'express';
 const app = express();
 import cors from 'cors';                // CORS allows different ports to communicate
 import mongoose from 'mongoose';        // Connect Mongoose to MongoDB
-import router from './database/route';  // Get all routes for database API
+import router from './api_endpoints/route';  // Get all routes for database API
+import dotenv from 'dotenv';
+
+// If app not in production mode, then use the enviornment vars from the .env file
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
 
 app.use(express.json());                // Middleware to parse JSON requests
 app.use(cors()); 
-
-
-// If app not in production mode, then use the enviornment vars from the .env file
-if(process.env.NODE_ENV !== 'production') {
-    import('dotenv').then((dotenv) => dotenv.config());
-}
 
 const PORT = process.env.PORT || 3000;
 const CONNECTION = process.env.CONNECTION;
 
 if(!CONNECTION) {
-    console.error('Connection string is undefined, error connecting to MongoDB');
+    console.error('Error: MongoDB connection string (CONNECTION) is not defined in environment variables.');
     process.exit(1);
 }
 
@@ -35,8 +35,16 @@ const startBackend = async() => {
             console.log(`Server is running on http://localhost:${PORT}`);
         });
     }
-    catch(error) {
+    catch(error: any) {
         console.error('Error connecting to MongoDB:', error.message);
+        process.exit(1);
     }
 }
 startBackend();
+
+// Gracefully shutdown db, when we press ctrl+C or cmd+C
+process.on('SIGINT', async () => {
+    console.log('Shutting down gracefully...');
+    await mongoose.disconnect();
+    process.exit(0);
+});
